@@ -25,14 +25,34 @@ public class Main {
             System.out.println("Nome do arquivo: " + imagem_digital.getFile().getName());
             System.out.println("Tipo do arquivo: " + imagem_digital.tipoArquivo());
             Processador pi = new Processador(imagem_digital);
-//            pi.printMatrizRGB();
-//            pi.printMatrizBits();
-//            pi.setEscalaCinza();
-//            pi.setNegativo();
-//            pi.setBeW();
-            pi.setSaturar();
-            pi.getImagem().salvarImagem("nova_imagem." + imagem_digital.tipoArquivo());
-            pi.printMatrizRGB();
+            // pi.printMatrizRGB();
+            // pi.printMatrizBits();
+
+            // int qtdCinza = 256;
+            // pi.setEscalaCinza(qtdCinza);
+            // pi.getImagem().salvarImagem(qtdCinza + "_GrayScale_" + imagem_digital.getFile().getName());
+            
+            String cor = "Yellow"; //Red, Green, Blue, Cyan, Magenta, Yellow.
+            pi.setEscalaColorida(cor);
+            pi.getImagem().salvarImagem("C" + cor + "Scale_" + imagem_digital.getFile().getName());
+
+            // pi.setSaturar(2.5);
+            // pi.getImagem().salvarImagem("Satured" + 25 + "%_" + imagem_digital.getFile().getName());
+
+            // pi.setSaturar(5.0);
+            // pi.getImagem().salvarImagem("Satured" + 50 + "%_" + imagem_digital.getFile().getName());
+
+            // pi.setSaturar(7.5);
+            // pi.getImagem().salvarImagem("Satured" + 75 + "%_" + imagem_digital.getFile().getName());
+
+            // pi.setSaturar(10);
+            // pi.getImagem().salvarImagem("Satured" + 100 + "%_" + imagem_digital.getFile().getName());
+            
+            // pi.setNegativo();
+            // pi.getImagem().salvarImagem("Negative_" + imagem_digital.getFile().getName());
+
+            
+            // pi.printMatrizRGB();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
