@@ -232,19 +232,45 @@ public class Processador {
     }
 
     public void zoomLinear(int qtdZoom) throws IOException {
-        Imagem tempZoomA = new Imagem(getImagem().altura()*qtdZoom, getImagem().largura()*qtdZoom,"temp");
+        Imagem tempZoomA = new Imagem(getImagem().altura()*qtdZoom, getImagem().largura()*qtdZoom,"tempa");
         for (int y=0; y < getImagem().altura(); y++) {
             for (int x=0; x < getImagem().largura(); x++) {
                 RGB rgb = getImagem().getCor(x, y);
-                
-                for(int j=y*qtdZoom; j<(y*qtdZoom)+qtdZoom; j++) {
-                    for(int i=x*qtdZoom; i<(x*qtdZoom)+qtdZoom; i++) {
-                        tempZoomA.setCor(rgb,i,j);
+
+                RGB rgb2 = getImagem().getCor(x, y);
+                if(x+1<getImagem().largura()) rgb2 = getImagem().getCor(x+1, y);
+                else rgb2 = getImagem().getCor(x-1, y);
+
+                rgb.setRed((rgb.getRed()+rgb2.getRed())/2);
+                rgb.setGreen((rgb.getGreen()+rgb2.getGreen())/2);
+                rgb.setBlue((rgb.getBlue()+rgb2.getBlue())/2);
+
+                for(int j=y*qtdZoom; j < (y*qtdZoom)+qtdZoom; j++) {
+                    for(int i=x*qtdZoom; i < (x*qtdZoom)+qtdZoom; i++) {
+                        tempZoomA.setCor(rgb, i, y);
                     }
                 }
             }
         }
-        this.imagem.setImagem(tempZoomA.getImagem());
+        Imagem tempZoomB = new Imagem(getImagem().altura()*qtdZoom, getImagem().largura()*qtdZoom,"tempb");
+        for (int y=0; y < tempZoomA.altura()/qtdZoom; y++) {
+            for (int x=0; x < tempZoomA.largura(); x++) {
+                RGB rgb = tempZoomA.getCor(x, y);
+
+                RGB rgb2 = tempZoomA.getCor(x, y);
+                if(y+1<tempZoomA.altura()) rgb2 = tempZoomA.getCor(x, y+1);
+                else rgb2 = tempZoomA.getCor(x, y-1);
+
+                rgb.setRed((rgb.getRed()+rgb2.getRed())/2);
+                rgb.setGreen((rgb.getGreen()+rgb2.getGreen())/2);
+                rgb.setBlue((rgb.getBlue()+rgb2.getBlue())/2);
+
+                for(int j=y*qtdZoom; j < (y*qtdZoom)+qtdZoom; j++) {
+                    tempZoomB.setCor(rgb, x, j);
+                }
+            }
+        }
+        this.imagem.setImagem(tempZoomB.getImagem());
     }
 }
 
